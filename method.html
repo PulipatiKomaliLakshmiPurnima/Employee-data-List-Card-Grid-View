@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <title>List & Card Grid View</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-size: 20px;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body style="background-color: navy">
+    <div class="container-fluid mt-3">
+      <!--card toggle button  -->
+      <div class="pt-3 px-3">
+        <button
+          id="toggleC"
+          class="d-block ms-auto"
+          style="background-color: transparent; border: 1px solid transparent"
+        >
+          <i class="bi bi-grid-fill" style="font-size: 40px; color: white"></i>
+        </button>
+      </div>
+
+      <!-- cards -->
+      <div class="container">
+        <div class="row pt-4 px-2" id="card"></div>
+      </div>
+    </div>
+
+    <!-- table toggle button -->
+    <div class="container-fluid mt-3">
+      <div class="pt-3 pe-3">
+        <button
+          id="toggleT"
+          style="background-color: transparent; border: 1px solid transparent"
+          class="d-block ms-auto"
+        >
+          <i class="bi bi-list" style="font-size: 50px; color: white"></i>
+        </button>
+      </div>
+
+      <!-- table -->
+      <div class="container">
+        <table id="table" class="mt-5 bg-white table table-hover">
+          <thead id="thead">
+            <th>NAME</th>
+            <th>ID</th>
+            <th>SKILLS</th>
+            <th>PROJECT</th>
+            <th>HCM</th>
+          </thead>
+
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ext js -->
+    <script>
+      var data = [
+        {
+          img: "male.jpg",
+          Name: "Siva",
+          ID: 124536,
+          Skills: "Recat/Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "male.jpg",
+          Name: "Sai",
+          ID: 123456,
+          Skills: "Recat/Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "female.jpg",
+          Name: "Radha",
+          ID: 123457,
+          Skills: "Recat/Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "female.jpg",
+          Name: "Sailu",
+          ID: 123458,
+          Skills: "Recat/Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "male.jpg",
+          Name: "Krishna",
+          ID: 123459,
+          Skills: "Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "female.jpg",
+          Name: "Swetha",
+          ID: 123460,
+          Skills: "Recat",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "male.jpg",
+          Name: "Harish",
+          ID: 123456,
+          Skills: "Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "female.jpg",
+          Name: "Sai",
+          ID: 123548,
+          Skills: "Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+        {
+          img: "male.jpg",
+          Name: "Ganesh",
+          ID: 1235452,
+          Skills: "Angular",
+          Project: "Cognizant Internal",
+          HCM: "Alex",
+        },
+      ];
+      //card toggle button
+      toggleC.addEventListener("click", () => {
+        if (card.style.display === "none") {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+      //list toggle
+      toggleT.addEventListener("click", () => {
+        if (table.style.display === "none") {
+          table.style.display = "table";
+        } else {
+          table.style.display = "none";
+        }
+      });
+      //card function
+      function cardfunction() {
+        let htmlcard = data
+          .map(function (item, index) {
+            return `<div class="card col-3 me-3 mx-auto mb-5 ">
+              <button class="closebtn text-end" data-index='${index}'
+              onclick="deletedata(this)" id="delete-${index}" style="border: 1px solid transparent;background-color:transparent;">
+              <i class="glyphicon glyphicon-remove" style="color:red;font-size:20px"></i></button>                    
+                    <img src="${item.img}" class="card-img-top pt-1 " style="width:100px;margin-left:auto;margin-right:auto" alt="...">
+
+                    <div class="card-body px-4 mx-0">
+                        <div class="lead" style="font-size:20px">
+                        Name : &nbsp<span id="nameC-${index}">${item.Name}</span>
+                        <br>
+                        ID : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span id="idC-${index}">${item.ID}</span>
+                        <br>
+                        Skills : &nbsp&nbsp&nbsp<span id="skillC-${index}">${item.Skills}</span>
+                        <br>
+                        Project : <span id="projectC-${index}">${item.Project}</span>
+                        <br>
+                        HCM : &nbsp&nbsp<span id="hcmC-${index}">${item.HCM}</span>
+                        <br>
+                        </div>
+                    </div>
+                    <p class="text-end "><a href="#" data-index=${index} id="editCard-${index}" onclick="editItemGrid(this)">Edit</a><a href="#" class="d-none" data-index=${index} id="saveCard-${index}" onclick="saveItemGrid(this)">Save</a></p>
+                </div>`;
+          })
+          .join("");
+        card.innerHTML = htmlcard;
+      }
+
+      //deletion of card
+      function deletedata(element) {
+        data = [
+          ...data.filter(function (item, index) {
+            return (
+              index != document.getElementById(`${element.id}`).dataset.index
+            );
+          }),
+        ];
+        console.log(data);
+        cardfunction(data);
+      }
+      //edit function of card
+      function editItemGrid(element) {
+        let ele = document.getElementById(`${element.id}`).dataset.index;
+        document.getElementById(`${element.id}`).classList.add("d-none");
+        document.getElementById(`saveCard-${ele}`).classList.remove("d-none");
+        const name = document.getElementById(`nameC-${ele}`);
+        const id = document.getElementById(`idC-${ele}`);
+        const skill = document.getElementById(`skillC-${ele}`);
+        const project = document.getElementById(`projectC-${ele}`);
+        const hcm = document.getElementById(`hcmC-${ele}`);
+        name.innerHTML = `<input type="text" value="${name.textContent}" id="newNameC-${ele}">`;
+        id.innerHTML = `<input type="text" value="${id.textContent}" id="newIdC-${ele}">`;
+        skill.innerHTML = `<input type="text" value="${skill.textContent}" id="newSkillsC-${ele}">`;
+        project.innerHTML = `<input type="text" value="${project.textContent}" id="newProjectC-${ele}">`;
+        hcm.innerHTML = `<input type="text" value="${hcm.textContent}" id="newHcmC-${ele}">`;
+      }
+
+      //save button of card
+      function saveItemGrid(element) {
+        let ele = Number(
+          document.getElementById(`${element.id}`).dataset.index
+        );
+        data[ele].Name = document.getElementById(`newNameC-${ele}`).value;
+        data[ele].ID = Number(document.getElementById(`newIdC-${ele}`).value);
+        data[ele].Skills = document.getElementById(`newSkillsC-${ele}`).value;
+        data[ele].Project = document.getElementById(`newProjectC-${ele}`).value;
+        data[ele].HCM = document.getElementById(`newHcmC-${ele}`).value;
+        console.log(data);
+        cardfunction(data);
+      }
+      //table function
+      function tablefunction() {
+        let htmltable = data
+          .map(function (item, index) {
+            return `<tr>
+                    <td id="name--${index}">${item.Name}</td>
+                    <td id="id--${index}">${item.ID}</td>
+                    <td id="skill--${index}">${item.Skills}</td>
+                    <td id="project--${index}">${item.Project}</td>
+                    <td id="hcm--${index}">${item.HCM}</td>
+                    <td><button class="btn" onclick="editItem(this)" data-index='${index}' id="editlink--${index}" style="border: 1px solid transparent;background-color:transparent;"><span class='bi bi-pencil-square' style="font-size:25px"></span></button>
+      <button class="btn d-none" onclick="saveItem(this)" data-index='${index}' id="savelink--${index}" style="border: 1px solid transparent;background-color:transparent;"><i class="glyphicon glyphicon-floppy-save" style="color:blue"></i></button>
+      <button class="closebtn" onclick="deleteItem(this)" style="border: 1px solid transparent;background-color:transparent;">
+      <i class="glyphicon glyphicon-remove" style="color:red;font-size:20px"></i></button></td>
+                </tr>`;
+          })
+          .join("");
+        tbody.innerHTML = htmltable;
+      }
+      //deletion of table
+      function deleteItem(emp) {
+        var s = emp.parentNode.parentNode;
+        s.parentNode.removeChild(s);
+      }
+      //editfunction of table
+      function editItem(element) {
+        let ele = document.getElementById(`${element.id}`).dataset.index;
+        document.getElementById(`${element.id}`).classList.add("d-none");
+        document.getElementById(`savelink--${ele}`).classList.remove("d-none");
+        const name = document.getElementById(`name--${ele}`);
+        const id = document.getElementById(`id--${ele}`);
+        const skill = document.getElementById(`skill--${ele}`);
+        const project = document.getElementById(`project--${ele}`);
+        const hcm = document.getElementById(`hcm--${ele}`);
+        name.innerHTML = `<input type="text" value="${name.textContent}" id="newName--${ele}">`;
+        id.innerHTML = `<input type="text" value="${id.textContent}" id="newId--${ele}">`;
+        skill.innerHTML = `<input type="text" value="${skill.textContent}" id="newSkills--${ele}">`;
+        project.innerHTML = `<input type="text" value="${project.textContent}" id="newProject--${ele}">`;
+        hcm.innerHTML = `<input type="text" value="${hcm.textContent}" id="newHcm--${ele}">`;
+      }
+
+      //save function of table
+      function saveItem(element) {
+        let ele = Number(
+          document.getElementById(`${element.id}`).dataset.index
+        );
+        data[ele].Name = document.getElementById(`newName--${ele}`).value;
+        data[ele].ID = Number(document.getElementById(`newId--${ele}`).value);
+        data[ele].Skills = document.getElementById(`newSkills--${ele}`).value;
+        data[ele].Project = document.getElementById(`newProject--${ele}`).value;
+        data[ele].HCM = document.getElementById(`newHcm--${ele}`).value;
+        console.log(data);
+        tablefunction(data);
+      }
+
+      cardfunction();
+      tablefunction();
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
